@@ -251,7 +251,7 @@
       font-weight: 200;
       font-size: 12px;
       text-align: left;
-      width: 220px;
+      width: 300px;
     }
 
     .price-form label {
@@ -364,7 +364,7 @@
   											<span class="minortotal" id="total-label-cents">.00</span>
   								</div>
   							</div>
-  					<span class="fine-print">* Not all conversations include phone calls. See pricing.</span>
+  					<span class="fine-print">* Not all conversations may have a phone call. See pricing.</span>
   					</div>
   			</form>
   	</div>
@@ -416,6 +416,10 @@
                 setTimeout(() => {
                   update(1,30)
                   $(".ui-slider-handle.ui-state-default.ui-corner-all").css('left', (30/120*100)+'%')
+                  setTimeout(() => {
+                    update(1,40)
+                    $(".ui-slider-handle.ui-state-default.ui-corner-all").css('left', (40/120*100)+'%')
+                  }, 1000)
                 }, 1000)
               }, 1000)
             }, 2000)
