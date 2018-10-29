@@ -4,13 +4,14 @@
 <head>
   <meta charset="utf-8">
 
-  <title>RentHero Pricing Calculator</title>
+  <title>RentHero Calculator</title>
   <meta name="description" content="RentHero A.I. Pricing">
   <meta name="author" content="RentHero">
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>
 
   <!--
        IMPLEMENTATION IN DRAG AND DROP WEBSITE BUILDERS:
@@ -24,12 +25,12 @@
         }
         .frame {
          border: 0;
-         width: 550px;
-         -ms-transform: scale(0.70);
-         -moz-transform: scale(0.70);
-         -o-transform: scale(0.70);
-         -webkit-transform: scale(0.70);
-         transform: scale(0.70);
+         width: 500px;
+         -ms-transform: scale(0.65);
+         -moz-transform: scale(0.65);
+         -o-transform: scale(0.65);
+         -webkit-transform: scale(0.65);
+         transform: scale(0.65);
 
          -ms-transform-origin: 0 0;
          -moz-transform-origin: 0 0;
@@ -181,12 +182,23 @@
 
     .price-slider {
       margin-bottom: 70px;
+      display: flex;
+      flex-direction: column;
       span {
         font-weight: 200;
         display: inline-block;
         color: #7f8c8d;
         font-size: 13px;
       }
+    }
+
+    #slider {
+      width: 300px;
+    }
+
+    .price-slide {
+      display: flex;
+      flex-direction: row;
     }
 
     .form-pricing {
@@ -239,7 +251,7 @@
       font-weight: 200;
       font-size: 12px;
       text-align: left;
-      width: 188px;
+      width: 220px;
     }
 
     .price-form label {
@@ -276,6 +288,14 @@
       justify-content: flex-end;
     }
 
+    .increment-btn {
+      font-size: 20px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
     /* HR */
 
     hr.style {
@@ -294,12 +314,21 @@
   	<div class="price-box">
   			<form class="form-horizontal form-pricing" role="form">
   					<div class="price-slider">
-  							<h4 class="great">Daily Message Volume</h4>
-
-  							<span>&nbsp;Dispersed 5 Minute Convo Per Lead</span>
-  							<div class="col-sm-12">
-  								<div id="slider"></div>
-  							</div>
+                <div>
+    							<h4 class="great">Daily Message Volume</h4>
+    							<span>&nbsp;Dispersed 5 Minute Convos Per Lead</span>
+                </div>
+                <div class="price-slide">
+                  <div id="subtract-volume" class="col-sm-1">
+                    <ion-icon name="remove" class="increment-btn"></ion-icon>
+                  </div>
+    							<div class="col-sm-10">
+    								<div id="slider"></div>
+    							</div>
+                  <div id="add-volume" class="col-sm-1">
+                    <ion-icon name="add" class="increment-btn"></ion-icon>
+                  </div>
+                </div>
   					</div>
   					<div class="price-form">
   							<div class="info-box">
@@ -315,7 +344,7 @@
   							<div class="info-box">
   								<div class="text-info">
   									<label for="percentage">RentHero A.I.</label>
-  									<span class="help-text">$0.33/convo + call*</span>
+  									<span class="help-text">$0.39/convo + call *</span>
   								</div>
   								<div class="number-info">
   									<input type="hidden" id="percentage" class="form-control">
@@ -335,19 +364,21 @@
   											<span class="minortotal" id="total-label-cents">.00</span>
   								</div>
   							</div>
-  					<span class="fine-print">* Not all convos include phone calls</span>
+  					<span class="fine-print">* Not all conversations include phone calls. See pricing.</span>
   					</div>
   			</form>
   	</div>
 
       <script type="text/javascript" src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
       <script type='text/javascript'>
+        var current_amount = 1
+
         $(document).ready(function() {
             $("#slider").slider({
                 animate: true,
                 value:1,
                 min: 0,
-                max: 200,
+                max: 120,
                 step: 2,
                 slide: function(event, ui) {
                     update(1,ui.value); //changed
@@ -358,20 +389,54 @@
             $("#amount-label").text(0);
 
             update();
+
+            $("#subtract-volume").on( "click", function() {
+              var next_amount = current_amount
+              if (current_amount-5 >= 0) {
+                next_amount -= 5
+              }
+              update(1,next_amount)
+              $(".ui-slider-handle.ui-state-default.ui-corner-all").css('left', (next_amount/120*100)+'%')
+            });
+            $("#add-volume").on( "click", function() {
+              var next_amount = current_amount
+              if (current_amount+5 <= 120) {
+                next_amount += 5
+              }
+              update(1,next_amount)
+              $(".ui-slider-handle.ui-state-default.ui-corner-all").css('left', (next_amount/120*100)+'%')
+            });
+
+            setTimeout(() => {
+              update(1,10)
+              $(".ui-slider-handle.ui-state-default.ui-corner-all").css('left', (10/120*100)+'%')
+              setTimeout(() => {
+                update(1,20)
+                $(".ui-slider-handle.ui-state-default.ui-corner-all").css('left', (20/120*100)+'%')
+                setTimeout(() => {
+                  update(1,30)
+                  $(".ui-slider-handle.ui-state-default.ui-corner-all").css('left', (30/120*100)+'%')
+                }, 1000)
+              }, 1000)
+            }, 2000)
         });
 
         //changed. now with parameter
         function update(slider,val) {
           //changed. Now, directly take value from ui.value. if not set (initial, will use current value.)
-          var $amount = slider == 1 ? val:$("#amount").val();
-
+          var $amount = slider == 1 ? val: 0;
+          current_amount = parseInt($amount)
           /* commented
           $amount = $( "#slider" ).slider( "value" );
            */
 
-            const laborCost = (5/60*17*$amount).toFixed(2)
-            const rentheroCost = ($amount * (0.33+0.15*5*0.5)).toFixed(2)
-            const monthlySavings = (laborCost - rentheroCost)*31
+            const laborCost = (5/60*17*$amount).toFixed(2);
+            let base = 0;
+            const rentheroCost = ($amount * (0.39+0.15*5*0.25)).toFixed(2);
+            if ($amount > 1) {
+              base = 10
+            }
+            const monthlySavings = (laborCost - rentheroCost)*30 - base
 
             // the amount of labour cost
            $( "#amount" ).val(laborCost);

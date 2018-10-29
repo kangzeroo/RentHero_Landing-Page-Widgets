@@ -1,8 +1,8 @@
-# Price Calculator
-Calculate how much property managers could be saving using RentHero A.I.
+# Template Widget
+For some purpose
 
 ## Steps to Deploy
-1. Host `index.html` on a secure https web address - currently `https://screen.renthero.com` <br/>
+1. Host `index.html` on a secure https web address <br/>
 2. Load into your website or drag-and-drop builder as an `iframe` <br/>
 
 ```

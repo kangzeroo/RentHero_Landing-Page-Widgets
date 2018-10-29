@@ -1,0 +1,521 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>RentHero Statistics</title>
+  <meta name="description" content="Template Widget">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Template">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <style rel="stylesheet/less" type="text/css">
+    /****** Statistic ******/
+    .statistic {
+    margin: 1em 0;
+    text-transform: uppercase;
+    display: inline-block;
+
+    .value {
+      font-size: 4em;
+      line-height: 1em;
+      text-align: center;
+
+      &.text {
+        font-size: 2em;
+        font-weight: bold;
+      }
+
+      img {
+        max-height: .8em;
+        vertical-align: baseline;
+      }
+    }
+
+    .label {
+      color: inherit;
+      display: block;
+      font-size: 1em;
+      text-align: center;
+    }
+    }
+
+    .statistic + .statistic {
+    margin-left: 1.5em;
+    }
+
+    /*** Horizontal Statistic ***/
+    .statistic.horizontal {
+    .value,
+    .label {
+      display: inline;
+      vertical-align: middle;
+    }
+    }
+
+    /****** Statistic Group ******/
+    .statistic-group {
+    margin: 1em 0;
+
+    .statistic {
+      display: inline-block;
+    }
+    }
+
+    /*** Horizontal Statistic Group ***/
+    .statistic-group.horizontal {
+    .statistic {
+      display: block;
+
+      .value,
+      .label {
+        display: inline;
+        vertical-align: middle;
+      }
+    }
+    .statistic + .statistic {
+      margin-left: 0;
+    }
+    }
+
+    /*** Float Statistics ***/
+    .statistic {
+    &.pull-left {
+      margin-right: 1em;
+    }
+    &.pull-right {
+      margin-left: 1em;
+    }
+    }
+
+    /****** Statistic Sizes ******/
+    .statistic {
+    &.mini .value {
+      font-size: 1em;
+      font-weight: bold;
+    }
+    &.tiny .value {
+      font-size: 2em;
+    }
+    &.small .value {
+      font-size: 3em !important;
+    }
+    &.large .value {
+      font-size: 5em;
+    }
+    &.huge .value {
+      font-size: 6em;
+    }
+    }
+
+    /****** Statistic Types ******/
+    .statistic {
+    &.primary {
+      color: @brand-primary;
+    }
+
+    &.success {
+      color: @brand-success;
+    }
+
+    &.info {
+      color: @brand-info;
+    }
+
+    &.warning {
+      color: @brand-warning;
+    }
+
+    &.danger {
+      color: @brand-danger;
+    }
+
+    &.inverted {
+      color: white;
+    }
+
+    }
+
+    /****** Bootstrap Colors ******/
+
+    @gray-base: #000;
+    @gray-darker: lighten(@gray-base, 13.5%);
+    @gray-dark: lighten(@gray-base, 20%);
+    @gray: lighten(@gray-base, 33.5%);
+    @gray-light: lighten(@gray-base, 46.7%);
+    @gray-lighter: lighten(@gray-base, 93.5%);
+    @brand-primary: darken(#428bca, 6.5%);
+    @brand-success: #5cb85c;
+    @brand-info: #5bc0de;
+    @brand-warning: #f0ad4e;
+    @brand-danger: #d9534f;
+
+    /****** Bootstrap Typography ******/
+    @font-size-base: 14px;
+    @font-size-large: ceil((@font-size-base * 1.25));
+    @font-size-small: ceil((@font-size-base * 0.85));
+    @font-size-h1: floor((@font-size-base * 2.6));
+    @font-size-h2: floor((@font-size-base * 2.15));
+    @font-size-h3: ceil((@font-size-base * 1.7));
+    @font-size-h4: ceil((@font-size-base * 1.25));
+    @font-size-h5: @font-size-base;
+    @font-size-h6: ceil((@font-size-base * 0.85));
+
+    /****** Footer ******/
+
+    .footer {
+    background-color: @gray-lighter;
+    }
+    .footer p {
+    margin: 20px 0;
+    text-align: center;
+    color: darken(@gray-lighter, 40%);
+    }
+    .footer .glyphicon-heart {
+    color: pink;
+    }
+
+    /*** Sticky Footer ***/
+
+    @footer-height: 60px;
+
+    html {
+    position: relative;
+    min-height: 100%;
+    }
+    body {
+    margin-bottom: @footer-height;
+    }
+    .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: @footer-height;
+    }
+
+  </style>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.7.1/less.min.js" ></script>
+  <script type="text/javascript" src="https://use.fontawesome.com/25bb516a2a.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+  <header class="header">
+  <div class="container">
+    <h1 class="page-header">
+      Bootstrap Statistics<br />
+      <small>Inspired by <a href="https://semantic-ui.com/views/statistic.html">Semantic UI</a></small>
+    </h1>
+    <p class="lead">A statistic emphasizes the current value of an attribute</p>
+  </div>
+</header>
+
+<div class="primary">
+  <div class="container">
+
+    <h2>Types</h2>
+
+    <h3>Statistic</h3>
+    <p>A statistic can display a value with a label above or below it</p>
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="statistic">
+              <div class="value">5,550</div>
+              <div class="label">Downloads</div>
+            </div><!-- /.statistic -->
+          </div><!-- /.col -->
+
+          <div class="col-sm-6">
+            <div class="statistic">
+              <div class="label">Views</div>
+              <div class="value">40,509</div>
+            </div><!-- /.statistic -->
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.panel-body -->
+    </div><!-- /.panel -->
+
+
+    <h3>Statistics Group</h3>
+    <p>A group of statistics</p>
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="statistic-group">
+          <div class="statistic">
+            <div class="value">22</div>
+            <div class="label">Faves</div>
+          </div><!-- /.statistic -->
+
+          <div class="statistic">
+            <div class="value">31,200</div>
+            <div class="label">Views</div>
+          </div><!-- /.statistic -->
+
+          <div class="statistic">
+            <div class="value">22</div>
+            <div class="label">Members</div>
+          </div><!-- /.statistic -->
+        </div><!-- /.statistic-group -->
+      </div><!-- /.panel-body -->
+    </div><!-- /.panel -->
+
+    <h2>Content</h2>
+
+    <h3>Value</h3>
+    <p>A statistic can contain a numeric, icon, image, or text value</p>
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="statistic-group">
+          <div class="statistic">
+            <div class="value">22</div>
+            <div class="label">Faves</div>
+          </div><!-- /.statistic -->
+
+          <div class="statistic">
+            <div class="text value">Three<br>Thousand</div>
+            <div class="label">Signups</div>
+          </div><!-- /.statistic -->
+
+          <div class="statistic">
+            <div class="value"><i class="fa fa-plane" aria-hidden="true"></i> 5</div>
+            <div class="label">Flights</div>
+          </div><!-- /.statistic -->
+
+          <div class="statistic">
+            <div class="value"><img src="http://placehold.it/100x100" class="img-circle inline image"> 42</div>
+            <div class="label">Team Members</div>
+          </div><!-- /.statistic -->
+        </div><!-- /.statistic-group -->
+      </div><!-- /.panel-body -->
+    </div><!-- /.panel -->
+
+    <h3>Label</h3>
+    <p>A statistic can contain a label to help provide context for the presented value</p>
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="statistic">
+          <div class="value">2,204</div>
+          <div class="label">Views</div>
+        </div><!-- /.statistic -->
+      </div><!-- /.panel-body -->
+    </div><!-- /.panel -->
+
+
+    <h2>Variations</h2>
+
+    <h3>Horizontal Statistic</h3>
+    <p>A statistic can present its measurement horizontally</p>
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="horizontal statistic">
+          <div class="value">2,204</div>
+          <div class="label">Views</div>
+        </div><!-- /.statistic -->
+      </div><!-- /.panel-body -->
+    </div><!-- /.panel -->
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="horizontal statistic-group">
+          <div class="statistic">
+            <div class="value">2,204</div>
+            <div class="label">Views</div>
+          </div><!-- /.statistic -->
+
+          <div class="statistic">
+            <div class="value">3,322</div>
+            <div class="label">Downloads</div>
+          </div><!-- /.statistic -->
+
+          <div class="statistic">
+            <div class="value">22</div>
+            <div class="label">Tasks</div>
+          </div><!-- /.statistic -->
+        </div><!-- /.statistic-group -->
+      </div><!-- /.panel-body -->
+    </div><!-- /.panel -->
+
+    <h3>Floated</h3>
+    <p>A statistic can sit to the left or right of other content</p>
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="pull-right statistic">
+          <div class="value">2,204</div>
+          <div class="label">Views</div>
+        </div><!-- /.statistic -->
+        <p>Te eum doming eirmod, nominati pertinacia argumentum ad his. Ex eam alia facete scriptorem, est autem aliquip detraxit at. Usu ocurreret referrentur at, cu epicurei appellantur vix. Cum ea laoreet recteque electram, eos choro alterum definiebasin. Vim dolorum definiebas an. Mei ex natum rebum iisque.</p>
+        <p>Audiam quaerendum eu sea, pro omittam definiebas ex. Te est latine definitiones. Quot wisi nulla ex duo. Vis sint solet expetenda ne, his te phaedrum referrentur consectetuer. Id vix fabulas oporteat, ei quo vide phaedrum, vim vivendum maiestatisin.</p>
+        <div class="pull-left statistic">
+          <div class="value">2,204</div>
+          <div class="label">Views</div>
+        </div><!-- /.statistic -->
+        <p>Eu quo homero blandit intellegebat. Incorrupte consequuntur mei id. Mei ut facer dolores adolescens, no illum aperiri quo, usu odio brute at. Qui te porro electram, ea dico facete utroque quo. Populo quodsi te eam, wisi everti eos ex, eum elitraltera utamur at. Quodsi convenire mnesarchum eu per, quas minimum postulant per id.</p>
+        <p>Audiam quaerendum eu sea, pro omittam definiebas ex. Te est latine definitiones. Quot wisi nulla ex duo. Vis sint solet expetenda ne, his te phaedrum referrentur consectetuer. Id vix fabulas oporteat, ei quo vide phaedrum, vim vivendum maiestatisin.</p>
+      </div><!-- /.panel-body -->
+    </div><!-- /.panel -->
+
+    <h3>Size</h3>
+    <p>A statistic can vary in size</p>
+
+    <div class="panel panel-default">
+      <div class="panel-body text-center">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="mini statistic">
+              <div class="value">2,204</div>
+              <div class="label">Mini</div>
+            </div><!-- /.statistic -->
+          </div><!-- /.col -->
+
+          <div class="col-sm-4">
+            <div class="tiny statistic">
+              <div class="value">2,204</div>
+              <div class="label">Tiny</div>
+            </div><!-- /.statistic -->
+          </div><!-- /.col -->
+
+          <div class="col-sm-4">
+            <div class="small statistic">
+              <div class="value">2,204</div>
+              <div class="label">Small</div>
+            </div><!-- /.statistic -->
+          </div><!-- /.col -->
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="statistic">
+              <div class="value">2,204</div>
+              <div class="label">Normal</div>
+            </div><!-- /.statistic -->
+          </div><!-- /.col -->
+
+          <div class="col-sm-4">
+            <div class="large statistic">
+              <div class="value">2,204</div>
+              <div class="label">Large</div>
+            </div><!-- /.statistic -->
+          </div><!-- /.col -->
+
+          <div class="col-sm-4">
+            <div class="huge statistic">
+              <div class="value">2,204</div>
+              <div class="label">Huge</div>
+            </div><!-- /.statistic -->
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.panel-body -->
+    </div><!-- /.panel -->
+
+    <div class="panel panel-default">
+      <div class="panel-body text-center">
+        <div class="horizontal statistic-group">
+          <div class="mini statistic">
+            <div class="value">2,204</div>
+            <div class="label">Mini</div>
+          </div><!-- /.statistic -->
+
+          <div class="tiny statistic">
+            <div class="value">2,204</div>
+            <div class="label">Tiny</div>
+          </div><!-- /.statistic -->
+
+          <div class="small statistic">
+            <div class="value">2,204</div>
+            <div class="label">Small</div>
+          </div><!-- /.statistic -->
+
+          <div class="statistic">
+            <div class="value">2,204</div>
+            <div class="label">Normal</div>
+          </div><!-- /.statistic -->
+
+          <div class="large statistic">
+            <div class="value">2,204</div>
+            <div class="label">Large</div>
+          </div><!-- /.statistic -->
+
+          <div class="huge statistic">
+            <div class="value">2,204</div>
+            <div class="label">Huge</div>
+          </div><!-- /.statistic -->
+        </div><!-- /.statistic-group -->
+      </div><!-- /.panel-body -->
+    </div><!-- /.panel -->
+
+    <h3>Colors</h3>
+
+    <div class="panel panel-default">
+      <div class="panel-body text-center">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="statistic primary">
+              <div class="value">5,550</div>
+              <div class="label">Downloads</div>
+            </div><!-- /.statistic -->
+          </div><!-- /.col -->
+
+          <div class="col-sm-6">
+            <div class="statistic success">
+              <div class="label">Views</div>
+              <div class="value">40,509</div>
+            </div><!-- /.statistic -->
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="statistic info">
+              <div class="value">5,550</div>
+              <div class="label">Downloads</div>
+            </div><!-- /.statistic -->
+          </div><!-- /.col -->
+
+          <div class="col-sm-6">
+            <div class="statistic warning">
+              <div class="label">Views</div>
+              <div class="value">40,509</div>
+            </div><!-- /.statistic -->
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="statistic danger">
+              <div class="value">5,550</div>
+              <div class="label">Downloads</div>
+            </div><!-- /.statistic -->
+          </div><!-- /.col -->
+
+          <div class="col-sm-6">
+            <div class="statistic inverted" style="background: #333">
+              <div class="label">Views</div>
+              <div class="value">40,509</div>
+            </div><!-- /.statistic -->
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.panel-body -->
+    </div><!-- /.panel -->
+  </div><!-- /.container -->
+</div><!-- /.primary -->
+
+<footer class="footer">
+  <div class="container">
+    <p class="small">Created with <span class="glyphicon glyphicon-heart" aria-hidden="true"></span> by Savanah</p>
+  </div>
+</footer>
+
+</body>
+</html>
