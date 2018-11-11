@@ -1,0 +1,454 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>RentHero Pricing</title>
+  <meta name="description" content="Template Widget">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Template">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+  <script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>
+
+  <style>
+    /* DIRTY Responsive pricing table CSS */
+
+      /*
+      - make mobile switch sticky
+      */
+      * {
+      box-sizing:border-box;
+      padding:0;
+      margin:0;
+       outline: 0;
+      }
+      body {
+      font-family:Helvetica Neue,Helvetica,Arial,sans-serif;
+      font-size:14px;
+      padding:14px;
+      background-color: rgba(0,0,0,0);
+      }
+      article {
+      width:100%;
+      max-width:1000px;
+      margin:0 auto;
+      height:700px;
+      position:relative;
+      border-radius: 5px;
+      }
+      ul {
+      display:flex;
+      top:0px;
+      z-index:10;
+      padding-bottom:14px;
+      }
+      li {
+      list-style:none;
+      flex:1;
+      }
+      li:last-child {
+      border-right:1px solid #DDD;
+      }
+      button {
+      width:100%;
+      border: 1px solid #DDD;
+      border-right:0;
+      border-top:0;
+      padding: 10px;
+      background:#FFF;
+      font-size:14px;
+      font-weight:bold;
+      height:60px;
+      color:#999
+      }
+      li.active button {
+      background:#F5F5F5;
+      color:#000;
+      }
+      table { border-collapse:collapse; table-layout:fixed; width:100%; }
+      th { background:#F5F5F5; display:none; }
+      td, th {
+      height:53px;
+      background-color: #fefefe;
+      }
+      td,th { border:1px solid #DDD; padding:10px; empty-cells:show; }
+      td,th {
+      text-align:left;
+      }
+      td+td, th+th {
+      text-align:center;
+      display:none;
+      }
+      td.default {
+      display:table-cell;
+      }
+      .bg-green {
+      border-top:3px solid #28a745;
+      }
+      .bg-blue {
+      border-top:3px solid #0097CF;
+      }
+      .bg-red {
+        border-top:3px solid #dc3545;
+      }
+      .txt-green {
+        color: #28a745;
+      }
+      .txt-red {
+        color: #dc3545;
+      }
+      .txt-blue {
+        color: #0097CF;
+      }
+      .sep {
+      background:#F5F5F5;
+      font-weight:bold;
+      color: #31708f;
+      }
+      .txt-l { font-size:28px; font-weight:bold; }
+      .txt-m { font-size:15px; }
+      .inquire { font-size:18px; font-weight:bold; }
+      .superscript { font-size: 14px; }
+      .txt-top { position:relative; top:-9px; left:-2px; }
+      .tick { font-size:18px; color:#2CA01C; }
+      .hide {
+      border:0;
+      background-color: #fefefe;
+      }
+
+      @media (min-width: 640px) {
+      ul {
+        display:none;
+      }
+      td,th {
+        display:table-cell !important;
+      }
+      td,th {
+        width: 330px;
+
+      }
+      td+td, th+th {
+        width: auto;
+      }
+      }
+
+      .tooltip {
+          position: relative;
+          display: inline-block;
+          float: right;
+      }
+
+      /* Tooltip text */
+      .tooltip .tooltiptext {
+          visibility: hidden;
+          width: 180px;
+          background-color: black;
+          color: #fff;
+          text-align: center;
+          padding: 5px;
+          border-radius: 6px;
+
+          /* Position the tooltip text - see examples below! */
+          position: absolute;
+          z-index: 1;
+      }
+
+      /* Show the tooltip text when you mouse over the tooltip container */
+      .tooltip:hover .tooltiptext {
+          visibility: visible;
+      }
+
+      .text-point {
+        font-size: 16px;
+        display: flex;
+        flex-direction: row;
+        color: #31708f;
+      }
+
+      .question_tip {
+        font-size: 18px;
+        color: #0097CF;
+      }
+
+      .borderless-cell {
+        border: 0px solid rgba(0,0,0,0);
+        padding: 10px;
+      }
+
+      .start-btn {
+        width: 100%;
+        height: 100%;
+        background-color: #0097CF;
+        color: white;
+        text-align: center;
+        font-size: 14px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .no_href {
+        color: white;
+        text-decoration: none;
+      }
+  </style>
+
+</head>
+<body>
+
+  <!-- DIRTY Responsive pricing table HTML -->
+
+<article>
+
+<ul>
+  <li class="bg-green">
+    <button>Bring Your Own Leads</button>
+  </li>
+  <li class="bg-blue active">
+    <button>Take Our Leads</button>
+  </li>
+  <li class="bg-red">
+    <button>Enterprise</button>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th class="hide"></th>
+      <th class="bg-green txt-green">Bring Your Own Leads</th>
+      <th class="bg-blue default txt-blue">Take Our Leads</th>
+      <th class="bg-red txt-red">Enterprise</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="text-point">Base Monthly</td>
+      <td class="txt-green">
+        <span class="txt-top">&#65284;</span>
+        <span class="txt-l">9<sup class='superscript'>&nbsp;99</sup></span>
+      </td>
+      <td class="default txt-blue">
+        <span class="txt-top">&#65284;</span>
+        <span class="txt-l">199<sup class='superscript txt-m'>&nbsp;99</sup></span>
+      </td>
+      <td class="txt-red"><span class="inquire">Contact Us</span></td>
+    </tr>
+    <tr>
+      <td class="text-point">Cost Per Lead</td>
+      <td class="txt-green">
+        <!-- <span class="txt-top">&#65284;</span>
+        <span class="txt-l">1<sup class='superscript'>&nbsp;.99</sup></span> -->
+        <span class="txt-m">FREE</span>
+      </td>
+      <td class="default txt-blue">
+        <!-- <span class="txt-top">&#65284;</span>
+        <span class="txt-l">0<sup class='superscript'>&nbsp;.00</sup></span> -->
+        <span class="txt-m">FREE</span>
+      </td>
+      <td class="txt-red">
+        <span class="txt-m">-</span>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-point">Max Per Month</td>
+      <td class="txt-green">
+        <!-- <span class="txt-top">&#65284;</span>
+        <span class="txt-l">1<sup class='superscript'>&nbsp;.99</sup></span> -->
+        <span class="txt-m">30</span>
+      </td>
+      <td class="default txt-blue">
+        <!-- <span class="txt-top">&#65284;</span>
+        <span class="txt-l">0<sup class='superscript'>&nbsp;.00</sup></span> -->
+        <span class="txt-m">UNLIMITED</span>
+      </td>
+      <td class="txt-red">
+        <span class="txt-m">-</span>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4" class="sep"></td>
+    </tr>
+    <tr>
+      <td>
+        <p class="text-point">
+          Screening & Education
+          <!-- <div class="tooltip">
+            <ion-icon name="help-circle" class="question_tip"></ion-icon>
+            <span class="tooltiptext">Inbound phone calls with a human receptionist are billed per minute. Not all conversations may include a phone call.</span>
+          </div> -->
+        </p>
+      </td>
+
+      <td>
+        <span class="tick">&#10004;</span>
+      </td>
+
+      <td>
+        <span class="tick">&#10004;</span>
+      </td>
+
+      <td>
+        <span class="tick">&#10004;</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p class="text-point">
+          Auto-Follow Up
+          <!-- <div class="tooltip">
+            <ion-icon name="help-circle" class="question_tip"></ion-icon>
+            <span class="tooltiptext">Flat rate on SMS, email and text-based conversations. Conversations may vary from a few minutes to several days, but it's all included in the flat rate.</span>
+          </div> -->
+        </p>
+      </td>
+
+      <td>
+        <span class="tick">&#10004;</span>
+      </td>
+
+      <td>
+        <span class="tick">&#10004;</span>
+      </td>
+
+      <td>
+        <span class="tick">&#10004;</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p class="text-point">
+          Scheduling
+          <!-- <div class="tooltip">
+            <ion-icon name="help-circle" class="question_tip"></ion-icon>
+            <span class="tooltiptext">Flat rate on SMS, email and text-based conversations. Conversations may vary from a few minutes to several days, but it's all included in the flat rate.</span>
+          </div> -->
+        </p>
+      </td>
+
+      <td>
+        <span class="tick">&#10004;</span>
+      </td>
+
+      <td>
+        <span class="tick">&#10004;</span>
+      </td>
+
+      <td>
+        <span class="tick">&#10004;</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p class="text-point">
+          Conversation Summaries
+          <!-- <div class="tooltip">
+            <ion-icon name="help-circle" class="question_tip"></ion-icon>
+            <span class="tooltiptext">Get deeper meaning from tenant conversations. Take advantage of our machine learning algorithms to learn more about your customer.</span>
+          </div> -->
+        </p>
+      </td>
+      <td><span class="tick">&#10004;</span></td>
+      <td class="default"><span class="tick">&#10004;</span></td>
+      <td><span class="tick">&#10004;</span></td>
+    </tr>
+    <tr>
+      <td>
+        <p class="text-point">
+          Conversation Transcripts
+          <!-- <div class="tooltip">
+            <ion-icon name="help-circle" class="question_tip"></ion-icon>
+            <span class="tooltiptext">Get deeper meaning from tenant conversations. Take advantage of our machine learning algorithms to learn more about your customer.</span>
+          </div> -->
+        </p>
+      </td>
+      <td></td>
+      <td class="default"><span class="tick">&#10004;</span></td>
+      <td><span class="tick">&#10004;</span></td>
+    </tr>
+    <tr>
+      <td>
+        <p class="text-point">
+          Lead Analytics
+          <!-- <div class="tooltip">
+            <ion-icon name="help-circle" class="question_tip"></ion-icon>
+            <span class="tooltiptext">A reviewable history of conversations.</span>
+          </div> -->
+        </p>
+      </td>
+      <td></td>
+      <td class="default"><span class="tick">&#10004;</span></td>
+      <td><span class="tick">&#10004;</span></td>
+    </tr>
+    <tr>
+      <td>
+        <p class="text-point">
+          Custom Workflows
+          <!-- <div class="tooltip">
+            <ion-icon name="help-circle" class="question_tip"></ion-icon>
+            <span class="tooltiptext">Integrate with your existing tenant screening software. Conditions Apply.</span>
+          </div> -->
+        </p>
+      </td>
+      <td></td>
+      <td class="default"></td>
+      <td><span class="tick">&#10004;</span></td>
+    </tr>
+
+    <tr>
+      <td class="borderless-cell"></td>
+      <td class="borderless-cell">
+        <button class="start-btn">
+          <a href="https://renthero-ai.typeform.com/to/rPcZzW" target="_blank" class="no_href">7 Day Free Trial</a>
+        </button>
+      </td>
+      <td class="borderless-cell default">
+        <button class="start-btn">
+          <a href="https://renthero-ai.typeform.com/to/rPcZzW" target="_blank" class="no_href">7 Day Free Trial</a>
+        </button>
+      </td>
+      <td class="borderless-cell">
+        <button class="start-btn">
+          <a href="https://renthero-ai.typeform.com/to/rPcZzW" class="no_href">Contact Us</a>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+</article>
+
+
+<script type='text/javascript'>
+// DIRTY Responsive pricing table JS
+
+$( "ul" ).on( "click", "li", function() {
+var pos = $(this).index()+2;
+$("tr").find('td:not(:eq(0))').hide();
+$('td:nth-child('+pos+')').css('display','table-cell');
+$("tr").find('th:not(:eq(0))').hide();
+$('li').removeClass('active');
+$(this).addClass('active');
+});
+
+// Initialize the media query
+var mediaQuery = window.matchMedia('(min-width: 640px)');
+
+// Add a listen event
+mediaQuery.addListener(doSomething);
+
+// Function to do something with the media query
+function doSomething(mediaQuery) {
+  if (mediaQuery.matches) {
+    $('.sep').attr('colspan',4);
+  } else {
+    $('.sep').attr('colspan',2);
+  }
+}
+
+// On load
+doSomething(mediaQuery);
+</script>
+</body>
+</html>

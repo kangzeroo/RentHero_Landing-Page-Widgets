@@ -1,0 +1,491 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>RentHero Income Calculator</title>
+  <meta name="description" content="RentHero A.I. Pricing">
+  <meta name="author" content="RentHero">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>
+
+  <!--
+       IMPLEMENTATION IN DRAG AND DROP WEBSITE BUILDERS:
+
+       <style>
+       .wrap {
+         width: 90vw;
+         height: 70vh;
+         padding: 0;
+         overflow: hidden;
+        }
+        .frame {
+         border: 0;
+         width: 500px;
+         -ms-transform: scale(0.65);
+         -moz-transform: scale(0.65);
+         -o-transform: scale(0.65);
+         -webkit-transform: scale(0.65);
+         transform: scale(0.65);
+
+         -ms-transform-origin: 0 0;
+         -moz-transform-origin: 0 0;
+         -o-transform-origin: 0 0;
+         -webkit-transform-origin: 0 0;
+         transform-origin: 0 0;
+        }
+       </style>
+       <div class="wrap">
+        <iframe class="frame" src="https://screen.renthero.com" width="100%" height="800px" frameborder="0" ></iframe>
+       </div>
+
+   -->
+
+  <style>
+    body {
+      background-color: rgba(0,0,0,0);
+    }
+
+    .price-box {
+      margin: 0 auto;
+      background: #E9E9E9;
+      border-radius: 10px;
+      padding: 40px 15px;
+      width: 500px;
+      height: 660px;
+    }
+
+    .ui-widget-content {
+      border: 1px solid #bdc3c7;
+      background: #e1e1e1;
+      color: #222222;
+      margin-top: 4px;
+    }
+
+    .ui-slider .ui-slider-handle {
+      position: absolute;
+      z-index: 2;
+      width: 5.2em;
+      height: 2.2em;
+      cursor: default;
+      margin: 0 -40px auto !important;
+      text-align: center;
+      line-height: 30px;
+      color: #FFFFFF;
+      font-size: 15px;
+      .glyphicon {
+        color: #FFFFFF;
+        margin: 0 3px;
+        font-size: 11px;
+        opacity: 0.5;
+      }
+    }
+
+    .ui-corner-all {
+      border-radius: 20px;
+    }
+
+    .ui-slider-horizontal .ui-slider-handle {
+      top: -.9em;
+    }
+
+    .ui-state-default, .ui-widget-content .ui-state-default {
+      background: #3F51B5;
+      width: auto;
+      min-width: 100px;
+    }
+
+    .ui-slider-horizontal .ui-slider-handle {
+      margin-left: -0.5em;
+    }
+
+    .ui-slider {
+      .ui-slider-handle {
+        cursor: pointer;
+      }
+      a {
+        cursor: pointer;
+        outline: none;
+        &:focus {
+          cursor: pointer;
+          outline: none;
+        }
+      }
+    }
+
+    .price, .lead p {
+      font-size: 32px;
+      display: inline-block;
+      line-height: 60px;
+    }
+
+    .rightstuff {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+
+    .cost {
+      font-size: 25px;
+      display: inline-block;
+      line-height: 60px;
+    }
+
+    .costminor {
+      font-size: 18px;
+      display: inline-block;
+      line-height: 60px;
+    }
+
+    .priceminor {
+      font-size: 18px;
+      display: inline-block;
+      line-height: 60px;
+    }
+
+    .grandtotal {
+      font-weight: 600;
+      font-size: 32px;
+      display: inline-block;
+      line-height: 60px;
+    }
+
+    .minortotal {
+      font-weight: 600;
+      font-size: 22px;
+      display: inline-block;
+      line-height: 60px;
+    }
+
+    #renthero-cost {
+      font-weight: 300;
+      font-size: 32px;
+      display: inline-block;
+      line-height: 60px;
+    }
+
+    h4.great {
+      background: #3F51B5;
+      margin: 0 0 25px -60px;
+      padding: 7px 15px;
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: 600;
+      border-radius: 5px;
+      display: inline-block;
+    }
+
+    .total {
+      /*display: inline;
+      padding: 10px 5px;*/
+      position: relative;
+      padding-bottom: 20px;
+    }
+
+    .price-slider {
+      margin-bottom: 70px;
+      display: flex;
+      flex-direction: column;
+      span {
+        font-weight: 200;
+        display: inline-block;
+        color: #7f8c8d;
+        font-size: 13px;
+      }
+    }
+
+    #slider {
+      width: 300px;
+    }
+
+    .price-slide {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .form-pricing {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 4px;
+      min-width: 460px;
+    }
+
+    .price-form {
+      background: #ffffff;
+      margin-bottom: 10px;
+      padding: 20px;
+      border: 1px solid #eeeeee;
+      border-radius: 4px;
+        /*-moz-box-shadow:    0 5px 5px 0 #ccc;
+          -webkit-box-shadow: 0 5px 5px 0 #ccc;
+          box-shadow:         0 5px 5px 0 #ccc;*/
+    }
+
+    .form-group {
+      margin-bottom: 0;
+      span.price {
+        font-weight: 200;
+        display: inline-block;
+        color: #7f8c8d;
+        font-size: 14px;
+      }
+    }
+
+    .help-text {
+      display: block;
+      /* margin-top: 32px; */
+      margin-bottom: 10px;
+      color: #737373;
+      /* position: absolute; */
+      /*margin-left: 20px;*/
+      font-weight: 200;
+      text-align: left;
+      width: 188px;
+    }
+
+    .fine-print {
+      display: block;
+      margin-top: 32px;
+      margin-bottom: 20px;
+      color: #737373;
+      position: absolute;
+      /*margin-left: 20px;*/
+      font-weight: 200;
+      font-size: 12px;
+      text-align: left;
+      width: 350px;
+    }
+
+    .price-form label {
+      font-weight: 200;
+      font-size: 21px;
+    }
+
+    img.payment {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .ui-slider-range-min {
+      background: #3F51B5;
+    }
+
+    .info-box {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    .text-info {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .number-info {
+      display: flex;
+      flex: 1;
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+
+    .number-info-tworows {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+    }
+
+    .increment-btn {
+      font-size: 20px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* HR */
+
+    hr.style {
+      margin-top: 0;
+      border: 0;
+      border-bottom: 1px dashed #ccc;
+      background: #999;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="container">
+  	<div class="price-box">
+  			<form class="form-horizontal form-pricing" role="form">
+  					<div class="price-slider">
+                <div>
+    							<h4 class="great">Commissions</h4>
+    							<span>&nbsp;How much do you want to earn per month?</span>
+                </div>
+                <div class="price-slide">
+                  <div id="subtract-volume" class="col-sm-1">
+                    <ion-icon name="remove" class="increment-btn"></ion-icon>
+                  </div>
+    							<div class="col-sm-10">
+    								<div id="slider"></div>
+    							</div>
+                  <div id="add-volume" class="col-sm-1">
+                    <ion-icon name="add" class="increment-btn"></ion-icon>
+                  </div>
+                </div>
+  					</div>
+  					<div class="price-form">
+  							<div class="info-box">
+  									<div class="text-info">
+  										<label for="amount">RentHero Tenants</label>
+  										<span class="help-text">Closed leads per month</span>
+  									</div>
+  									<div class="number-info">
+  											<input type="hidden" id="amount" class="form-control">
+  											<p class="price lead" id="amount-label"></p><p class="priceminor lead" id="amount-label-cents"></p>
+  									</div>
+  							</div>
+  							<div class="info-box">
+  								<div class="text-info">
+  									<label for="percentage">Hours Worked</label>
+  									<span class="help-text">Cumulative hours to close</span>
+  								</div>
+  								<div class="number-info">
+  									<input type="hidden" id="percentage" class="form-control">
+                    <div class="number-info-tworows">
+                      <div class="rightstuff">
+							           <p class="cost lead" id="percentage-label"></p>
+                      </div>
+                      <div class="rightstuff">
+							           <p class="costminor lead" id="percentage-label-cents"></p>
+                      </div>
+                    </div>
+  								</div>
+  							</div>
+  							<hr class="style">
+  							<div class="info-box total">
+  								<div class="text-info">
+  									<label for="total"><strong>Monthly Income: </strong></label>
+  									<span class="help-text">Gross with RentHero A.I.</span>
+  								</div>
+  								<div class="number-info">
+  											<input type="hidden" id="total" class="form-control">
+  											<p class="grandtotal lead" id="total-label"></p>
+  											<span class="minortotal" id="total-label-cents">.00</span>
+  								</div>
+  							</div>
+  					<span class="fine-print">* Flat average. Total monthly hours worked divided by 30 days.</span>
+  					</div>
+  			</form>
+  	</div>
+
+      <script type="text/javascript" src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+      <script type='text/javascript'>
+        var current_amount = 1200
+        var min = 1200
+        var max = 9000
+        var step = 250
+
+        $(document).ready(function() {
+            $("#slider").slider({
+                animate: true,
+                value:min,
+                min: min,
+                max: max,
+                step: step,
+                slide: function(event, ui) {
+                    update(min,ui.value); //changed
+                }
+            });
+            //Added, set initial value.
+            $("#amount").val(min);
+            $("#amount-label").text('$');
+
+            update();
+
+            $("#subtract-volume").on( "click", function() {
+              var next_amount = current_amount
+              if (current_amount-step >= min) {
+                next_amount -= step
+              }
+              update(min,next_amount)
+              $(".ui-slider-handle.ui-state-default.ui-corner-all").css('left', (next_amount/max*100)+'%')
+            });
+            $("#add-volume").on( "click", function() {
+              var next_amount = current_amount
+              if (current_amount+step <= max) {
+                next_amount += step
+              }
+              update(min,next_amount)
+              $(".ui-slider-handle.ui-state-default.ui-corner-all").css('left', (next_amount/max*100)+'%')
+            });
+
+            setTimeout(() => {
+              update(min,2000)
+              $(".ui-slider-handle.ui-state-default.ui-corner-all").css('left', (2000/max*100)+'%')
+              setTimeout(() => {
+                update(min,3000)
+                $(".ui-slider-handle.ui-state-default.ui-corner-all").css('left', (3000/max*100)+'%')
+                setTimeout(() => {
+                  update(min,4000)
+                  $(".ui-slider-handle.ui-state-default.ui-corner-all").css('left', (4000/max*100)+'%')
+                  setTimeout(() => {
+                    update(min,5000)
+                    $(".ui-slider-handle.ui-state-default.ui-corner-all").css('left', (5000/max*100)+'%')
+                  }, 1000)
+                }, 1000)
+              }, 1000)
+            }, 2000)
+        });
+
+        //changed. now with parameter
+        function update(slider,val) {
+          //changed. Now, directly take value from ui.value. if not set (initial, will use current value.)
+          var $amount = slider == min ? val: min;
+          target_income = parseInt($amount)
+          var tag = (target_income/1000).toFixed(1)+'k'
+          /* commented
+          $amount = $( "#slider" ).slider( "value" );
+           */
+           const avgRentalPrice = 2300
+           const avgCommission = avgRentalPrice/2
+           const avgLeadConversion = 1
+
+           const avgHoursPerClosing = 14
+
+            const leadsReq = ((target_income/avgCommission)/avgLeadConversion).toFixed(1);
+            const hoursWorked = (leadsReq*avgHoursPerClosing).toFixed(1);
+            const monthlyIncome = target_income
+
+            // the amount of labour cost
+           $( "#amount" ).val(leadsReq);
+           $('#amount-label').html(leadsReq);
+
+          // the renthero cost
+           $( "#percentage" ).val(hoursWorked);
+           $('#percentage-label').html(hoursWorked);
+           $('#percentage-label-cents').html('<span>'+(hoursWorked/30).toFixed(1)+' hr/day</span>');
+
+          // the total savings
+           $total = "$" + (monthlyIncome.toFixed(2));
+           $( "#total" ).val($total);
+           $( "#total-label" ).text($total.slice(0, $total.length - ".0".length));
+           $( "#total-label-cents" ).text($total.slice($total.length - ".0".length));
+
+
+            // redraw the slider
+           $('#slider a').html('<label><span class="glyphicon glyphicon-chevron-left"></span> '+tag+' <span class="glyphicon glyphicon-chevron-right"></span></label>');
+           current_amount = target_income
+        }
+      </script>
+  </div>
+</body>
+</html>
